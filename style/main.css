@@ -1,3 +1,20 @@
-h1{
-    color: blue;
+@font-face {
+  font-family: Titillium;
+  src: url(../font/TitilliumWeb-Regular.ttf);
+}
+
+/* global-class */
+.ff-main {
+  font-family: Titillium;
+}
+.bg-main {
+  background-color: #ffc107;
+}
+.position-middle {
+  top: 50%;
+  left: 50%;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem #ffe082;
 }
