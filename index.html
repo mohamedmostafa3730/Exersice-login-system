@@ -9,7 +9,7 @@
     <!-- link of bootstrap style -->
     <link rel="stylesheet" href="style/bootstrap.min.css" />
     <!-- link of animation background -->
-    <link rel="stylesheet" href="style/back-ground-style.css">
+    <link rel="stylesheet" href="style/back-ground-style.css" />
     <!-- link of  -->
     <link rel="stylesheet" href="style/main.css" />
   </head>
@@ -60,19 +60,29 @@
             <input
               type="email"
               class="form-control"
-              id="floatingInput"
+              id="userMailInput"
               placeholder="Enter your email"
             />
-            <label for="floatingInput">Enter your email</label>
+            <label for="userMailInput">Enter your email</label>
           </div>
           <div class="form-floating">
             <input
               type="password"
               class="form-control"
-              id="user-Password"
+              id="userPasswordInput"
               placeholder="Enter your password"
             />
-            <label for="floatingPassword">Enter your password</label>
+            <label for="userPasswordInput">Enter your password</label>
+          </div>
+          <div
+            class="d-flex flex-column justify-content-around position-relative"
+          >
+            <button id="btnLogin" class="btn btn-outline-dark btn-sm mx-5 my-3">
+              Login
+            </button>
+            <button id="btnSignUp" class="btn btn-outline-dark btn-sm mx-5">
+              Sign Up
+            </button>
           </div>
         </div>
       </div>
