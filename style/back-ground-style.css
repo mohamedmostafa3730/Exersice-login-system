@@ -19,6 +19,7 @@
   padding: 0;
   background: #ffc107;
   overflow: hidden;
+  z-index: -1;
 }
 .background li {
   position: absolute;

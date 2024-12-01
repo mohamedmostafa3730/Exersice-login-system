@@ -5,11 +5,14 @@ var userPasswordInput = document.getElementById("userPasswordInput");
 var btnLogin = document.getElementById("btnLogin");
 var btnSignIn = document.getElementById("btnSignIn");
 var btnSignUp = document.getElementById("btnSignUp");
+var btnLogout = document.getElementById("btnLogout");
+var rowData = document.getElementById("rowData");
+var mainContainer = document.getElementById("mainContainer");
 
 var users = [];
-// "users", JSON.stringify(users)
 if (localStorage.getItem("users") != null) {
   users = JSON.parse(localStorage.getItem("users"));
+  display(users[0].fullName);
 } else {
   signIn();
 }
@@ -17,20 +20,50 @@ if (localStorage.getItem("users") != null) {
 btnLogin.addEventListener("click", function (e) {
   login();
 });
+
 btnSignIn.addEventListener("click", function (e) {
   signIn();
 });
+
 btnSignUp.addEventListener("click", function (e) {
   signUp();
 });
 
 function login() {
   if (makeSure(true)) {
-    console.log("true");
+    display(userNameInput.value);
   } else {
-    console.log("false");
+    alert("Incorrect email or password. Please try again.");
   }
   clear();
+}
+
+function display(fullName) {
+  mainContainer.parentElement.classList.add("d-none", "vh-40");
+  mainContainer.parentElement.classList.remove("vh-100");
+  mainContainer.classList.add("d-none");
+  var print = `<div class="container text-center">
+            <p class="fs-2">
+                welcome
+                <span
+                    class="text-success fs-1 fw-bold text-decoration-underline text-capitalize"
+                    >${users[0].fullName}</span>
+                </p>
+                <button  class="w-25 topButton btn btn-danger btn-sm">
+            Logout
+                </button>
+</div>`;
+  rowData.innerHTML = print;
+}
+
+function logout() {
+  rowData.innerHTML = ``;
+  mainContainer.parentElement.classList.remove("d-none", "vh-40");
+  mainContainer.parentElement.classList.add("vh-100");
+  mainContainer.classList.remove("d-none");
+  users.splice(0, 1);
+  localStorage.clear();
+  signIn();
 }
 
 function makeSure() {
@@ -46,27 +79,15 @@ function makeSure() {
       return false;
     }
   }
-
-  //   for (var i = 0; i < users.length; i++) {
-  //     if (
-  //       users[i].email.toLowerCase().includes(gmail.value.toLowerCase()) &&
-  //       users[i].pass.toLowerCase().includes(Password.value.toLowerCase())
-  //     ) {
-  //       console.log("yes");
-  //     } else {
-  //       console.log("no");
-  //     }
-  //   }
-  //   clear();
 }
 
 function signIn() {
   transition();
 }
+
 function signUp() {
   if (btnLogin.classList.contains("d-none")) {
     addUser();
-    console.log("tee");
     transition();
   } else {
     transition();
@@ -81,15 +102,24 @@ function transition() {
 }
 
 function addUser() {
-  var User = {
-    fullName: userNameInput.value,
-    email: userMailInput.value,
-    pass: userPasswordInput.value,
-  };
-  users.push(User);
-  localStorage.setItem("users", JSON.stringify(users));
-  clear();
-  console.log(users);
+  if (
+    regex(userNameInput) &&
+    regex(userMailInput) &&
+    regex(userPasswordInput)
+  ) {
+    var User = {
+      fullName: userNameInput.value,
+      email: userMailInput.value,
+      pass: userPasswordInput.value,
+    };
+    users.push(User);
+    localStorage.setItem("users", JSON.stringify(users));
+    clear();
+  } else {
+    alert(
+      "The form is incomplete. Please fill in all required fields and correct any errors."
+    );
+  }
 }
 
 function clear() {
@@ -100,11 +130,11 @@ function clear() {
 
 function regex(element) {
   var regex = {
-    fullName: /^[A-Za-z]+(\s[A-Za-z]+)*$/,
-    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    pass: / ^(?=(.*[a-z]){2})(?=(.*[A-Z]){2})(?=(.*\d){2})(?=(.*[!@#$%^&*()_+={}|\[\]\\:";'<>?,./]){2}).{12,}$/,
+    userNameInput: /^(?=[A-Za-z-' ]{3,}$)[A-Za-z]+(?:[-' ]?[A-Za-z]+)*$/,
+    userMailInput: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    userPasswordInput:
+      /^(?=(.*[a-z]){2})(?=(.*[A-Z]){2})(?=(.*\d){2})(?=(.*[!@#$%^&*()_+={}|\[\]\\:";'<>?,./]){2}).{12,}$/,
   };
-
   if (regex[element.id].test(element.value)) {
     element.classList.add("is-valid");
     element.classList.remove("is-invalid");

@@ -54,33 +54,60 @@
         <li></li>
       </ul>
       <div class="container vh-100">
-        <div class="inner position-absolute position-middle translate-middle">
+        <div
+          class="inner position-absolute position-middle translate-middle"
+          id="mainContainer"
+        >
           <h1 class="mb-3">Smart Login System</h1>
           <div class="form-floating mb-3 d-none" id="newUser">
             <input
+              oninput="regex(this)"
               type="text"
               class="form-control"
               id="userNameInput"
               placeholder="Enter your name"
             />
+            <div class="alert alert-danger py-1 d-none">
+              Please enter a valid name.<br />
+              Only alphabetic characters are allowed,<br />
+              and words must be separated by a single space.
+            </div>
             <label for="userMailInput">Enter your Name</label>
           </div>
           <div class="form-floating mb-3">
             <input
+              oninput="regex(this)"
               type="email"
               class="form-control"
               id="userMailInput"
               placeholder="Enter your email"
             />
+            <div class="alert alert-danger py-1 d-none">
+              Invalid email address.<br />
+              Please enter a valid email in the format:<br />
+              example@domain.com
+            </div>
             <label for="userMailInput">Enter your email</label>
           </div>
           <div class="form-floating">
             <input
+              oninput="regex(this)"
               type="password"
               class="form-control"
               id="userPasswordInput"
               placeholder="Enter your password"
             />
+            <div class="alert alert-danger py-1 d-none">
+              Alert: Password Requirements Your password<br />
+              must meet the following criteria:<br />
+              At least 2 lowercase letters (e.g., a, b, c, etc.)<br />
+              At least 2 uppercase letters (e.g., A, B, C, etc.)<br />
+              At least 2 digits (e.g., 0, 1, 2, etc.)<br />
+              At least 2 special characters (e.g., !, @, #, $, %, ^, &, etc.)<br />
+              Minimum length of 12 characters<br />
+              Please ensure that your password <br />meets all the above
+              conditions before proceeding.
+            </div>
             <label for="userPasswordInput">Enter your password</label>
           </div>
           <div
@@ -104,6 +131,7 @@
           </div>
         </div>
       </div>
+      <div id="rowData" onclick="logout()"></div>
     </main>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/logic.js"></script>
