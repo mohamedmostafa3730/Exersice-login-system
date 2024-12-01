@@ -97,3 +97,25 @@ function clear() {
   userMailInput.value = "";
   userPasswordInput.value = "";
 }
+
+function regex(element) {
+  var regex = {
+    fullName: /^[A-Za-z]+(\s[A-Za-z]+)*$/,
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    pass: / ^(?=(.*[a-z]){2})(?=(.*[A-Z]){2})(?=(.*\d){2})(?=(.*[!@#$%^&*()_+={}|\[\]\\:";'<>?,./]){2}).{12,}$/,
+  };
+
+  if (regex[element.id].test(element.value)) {
+    element.classList.add("is-valid");
+    element.classList.remove("is-invalid");
+    element.nextElementSibling.classList.contains("d-none")
+      ? ""
+      : element.nextElementSibling.classList.add("d-none");
+    return true;
+  } else {
+    element.classList.add("is-invalid");
+    element.classList.remove("is-valid");
+    element.nextElementSibling.classList.remove("d-none");
+    return false;
+  }
+}
